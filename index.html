@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giới Thiệu Nhóm - Team Profile</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f5ff',
+                            100: '#e5edff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-card:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 20px 30px -10px rgba(79, 70, 229, 0.2);
+        }
+        .glass-modal {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<text class="text-gray-200 antialiased selection:bg-indigo-500 selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-40 w-full border-b border-white/10 bg-slate-900/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center font-bold text-xl text-white shadow-lg shadow-indigo-500/30">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-indigo-200 to-indigo-400">
+                    OUR TEAM
+                </span>
+            </div>
+            <a href="#members" class="px-5 py-2.5 rounded-full text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition-all duration-300 shadow-lg shadow-indigo-500/25">
+                Xem Thành Viên
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+        <span class="px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-indigo-300 bg-indigo-500/10 border border-indigo-500/20 mb-6 inline-block">
+            Chào mừng bạn đến với nhóm chúng tôi
+        </span>
+        <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight mb-6 leading-tight">
+            Gặp Gỡ Những Gương Mặt <br class="hidden sm:inline"/>
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400">Đầy Tinh Thần Sáng Tạo</span>
+        </h1>
+        <p class="max-w-2xl mx-auto text-lg text-slate-300 mb-10 leading-relaxed">
+            Chúng tôi là đội ngũ gồm 5 thành viên tài năng, luôn nhiệt huyết và sáng tạo trong công việc. Hãy cùng khám phá thông tin từng cá nhân bên dưới!
+        </p>
+    </section>
+
+    <!-- Members Grid Section -->
+    <section id="members" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="membersGrid">
+            <!-- Members will be injected via JS -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-8 bg-slate-950/50">
+        <div class="max-w-7xl mx-auto px-4 text-center text-slate-400 text-sm">
+            <p>© <span id="year"></span> Our Team. Sẵn sàng phát hành trên GitHub Pages.</p>
+        </div>
+    </footer>
+
+    <!-- Modal Change Avatar -->
+    <div id="avatarModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 glass-modal">
+        <div class="bg-slate-900 border border-white/10 rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+            <button onclick="closeAvatarModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-camera text-indigo-400"></i> Đổi Ảnh Đại Diện
+            </h3>
+            
+            <!-- Upload Tab Buttons -->
+            <div class="flex border-b border-slate-700 mb-4">
+                <button id="tabFileBtn" onclick="switchAvatarTab('file')" class="py-2 px-4 text-sm font-semibold border-b-2 border-indigo-500 text-indigo-400 w-1/2">Tải file lên</button>
+                <button id="tabUrlBtn" onclick="switchAvatarTab('url')" class="py-2 px-4 text-sm font-semibold border-b-2 border-transparent text-slate-400 hover:text-slate-200 w-1/2">Nhập URL Ảnh</button>
+            </div>
+
+            <!-- Tab File -->
+            <div id="tabFile" class="space-y-4">
+                <label class="flex flex-col items-center justify-center w-full h-36 border-2 border-dashed border-slate-700 hover:border-indigo-500 rounded-xl cursor-pointer bg-slate-800/50 transition-all">
+                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                        <i class="fa-solid fa-cloud-arrow-up text-3xl text-indigo-400 mb-2"></i>
+                        <p class="text-sm text-slate-300 font-medium">Nhấp để chọn ảnh từ máy tính</p>
+                        <p class="text-xs text-slate-500 mt-1">PNG, JPG, WEBP hoặc GIF</p>
+                    </div>
+                    <input type="file" id="avatarFileInput" accept="image/*" class="hidden" onchange="handleFileSelect(event)" />
+                </label>
+            </div>
+
+            <!-- Tab URL -->
+            <div id="tabUrl" class="space-y-4 hidden">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Đường dẫn ảnh (URL)</label>
+                    <input type="url" id="avatarUrlInput" placeholder="https://example.com/avatar.jpg" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-indigo-500 text-sm">
+                </div>
+                <button onclick="applyUrlAvatar()" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-sm font-semibold transition-colors">Áp dụng URL</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit Profile -->
+    <div id="editModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 glass-modal">
+        <div class="bg-slate-900 border border-white/10 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeEditModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-user-pen text-indigo-400"></i> Chỉnh Sửa Thông Tin
+            </h3>
+            
+            <form id="editForm" onsubmit="saveProfile(event)" class="space-y-4">
+                <input type="hidden" id="editMemberId">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Họ và Tên</label>
+                    <input type="text" id="editName" required class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-indigo-500 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Vai trò / Chức vụ</label>
+                    <input type="text" id="editRole" required class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-indigo-500 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Tiểu sử / Mô tả</label>
+                    <textarea id="editBio" rows="3" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-indigo-500 text-sm"></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Kỹ năng (phân cách bằng dấu phẩy)</label>
+                    <input type="text" id="editSkills" placeholder="UI/UX, React, Tailwind CSS" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-indigo-500 text-sm">
+                </div>
+                
+                <div class="pt-2 border-t border-slate-800">
+                    <p class="text-xs font-semibold text-indigo-400 uppercase tracking-wider mb-3">Liên kết Mạng xã hội</p>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[10px] text-slate-400 uppercase mb-1">Facebook</label>
+                            <input type="url" id="editFb" placeholder="https://facebook.com/..." class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-1.5 text-white focus:outline-none focus:border-indigo-500 text-xs">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] text-slate-400 uppercase mb-1">Instagram</label>
+                            <input type="url" id="editInsta" placeholder="https://instagram.com/..." class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-1.5 text-white focus:outline-none focus:border-indigo-500 text-xs">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] text-slate-400 uppercase mb-1">GitHub</label>
+                            <input type="url" id="editGithub" placeholder="https://github.com/..." class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-1.5 text-white focus:outline-none focus:border-indigo-500 text-xs">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] text-slate-400 uppercase mb-1">LinkedIn</label>
+                            <input type="url" id="editLinkedin" placeholder="https://linkedin.com/..." class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-1.5 text-white focus:outline-none focus:border-indigo-500 text-xs">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-4 flex justify-end gap-3">
+                    <button type="button" onclick="closeEditModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-semibold transition-colors">Hủy</button>
+                    <button type="submit" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-sm font-semibold transition-colors">Lưu Thay Đổi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script JavaScript Logic -->
+    <script>
+        // Dữ liệu mặc định 5 thành viên
+        const defaultMembers = [
+            {
+                id: 1,
+                name: "Gia Hân",
+                role: "Leader & Frontend Developer",
+                bio: "Đam mê thiết kế giao diện người dùng hiện đại và tối ưu trải nghiệm web.",
+                avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80",
+                skills: ["HTML/CSS", "JavaScript", "React", "Tailwind"],
+                socials: {
+                    facebook: "https://facebook.com",
+                    instagram: "https://instagram.com",
+                    github: "https://github.com",
+                    linkedin: "https://linkedin.com"
+                }
+            },
+            {
+                id: 2,
+                name: "Khánh An",
+                role: "UI/UX Designer",
+                bio: "Sáng tạo những thiết kế tinh tế, trực quan và đặt người dùng làm trung tâm.",
+                avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&auto=format&fit=crop&q=80",
+                skills: ["Figma", "Adobe XD", "User Research", "Prototyping"],
+                socials: {
+                    facebook: "https://facebook.com",
+                    instagram: "https://instagram.com",
+                    github: "https://github.com",
+                    linkedin: "https://linkedin.com"
+                }
+            },
+            {
+                id: 3,
+                name: "Mỹ Duyên",
+                role: "Backend Developer",
+                bio: "Xây dựng hệ thống xử lý dữ liệu mạnh mẽ, bảo mật và khả năng mở rộng cao.",
+                avatar: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&auto=format&fit=crop&q=80",
+                skills: ["Node.js", "Python", "MongoDB", "REST API"],
+                socials: {
+                    facebook: "https://facebook.com",
+                    instagram: "https://instagram.com",
+                    github: "https://github.com",
+                    linkedin: "https://linkedin.com"
+                }
+            },
+            {
+                id: 4,
+                name: "Phương Tường",
+                role: "Content Creator & QA",
+                bio: "Quản lý nội dung truyền thông và đảm bảo chất lượng sản phẩm hoàn hảo nhất.",
+                avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&auto=format&fit=crop&q=80",
+                skills: ["Content Writing", "Testing", "SEO", "Marketing"],
+                socials: {
+                    facebook: "https://facebook.com",
+                    instagram: "https://instagram.com",
+                    github: "https://github.com",
+                    linkedin: "https://linkedin.com"
+                }
+            },
+            {
+                id: 5,
+                name: "Thành Viên Mới",
+                role: "Fullstack Developer",
+                bio: "Yêu thích học hỏi công nghệ mới và xây dựng các ứng dụng hữu ích cho cộng đồng.",
+                avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&auto=format&fit=crop&q=80",
+                skills: ["Vue.js", "Express", "SQL", "Git"],
+                socials: {
+                    facebook: "https://facebook.com",
+                    instagram: "https://instagram.com",
+                    github: "https://github.com",
+                    linkedin: "https://linkedin.com"
+                }
+            }
+        ];
+
+        // Lấy danh sách từ LocalStorage hoặc gán mặc định
+        let members = JSON.parse(localStorage.getItem('team_members_data')) || defaultMembers;
+        let activeMemberIdForAvatar = null;
+
+        // Render giao diện danh sách thành viên
+        function renderMembers() {
+            const grid = document.getElementById('membersGrid');
+            grid.innerHTML = members.map(m => `
+                <div class="glass-card rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between relative group">
+                    <!-- Top Action Buttons -->
+                    <div class="absolute top-4 right-4 flex gap-2">
+                        <button onclick="openEditModal(${m.id})" title="Chỉnh sửa thông tin" class="w-8 h-8 rounded-full bg-slate-800/80 hover:bg-indigo-600 text-slate-300 hover:text-white flex items-center justify-center transition-colors">
+                            <i class="fa-solid fa-pen text-xs"></i>
+                        </button>
+                    </div>
+
+                    <div>
+                        <!-- Avatar Section -->
+                        <div class="relative w-28 h-28 mx-auto mb-5 group/avatar">
+                            <img src="${m.avatar}" alt="${m.name}" onerror="this.src='https://placehold.co/400x400/334155/fff?text=${encodeURIComponent(m.name)}'" class="w-full h-full object-cover rounded-full border-2 border-indigo-500/50 shadow-xl group-hover/avatar:border-indigo-400 transition-all">
+                            <button onclick="openAvatarModal(${m.id})" class="absolute inset-0 bg-slate-900/60 rounded-full flex flex-col items-center justify-center opacity-0 group-hover/avatar:opacity-100 transition-opacity duration-200 text-white">
+                                <i class="fa-solid fa-camera text-lg mb-1"></i>
+                                <span class="text-[10px] font-semibold">Đổi Ảnh</span>
+                            </button>
+                        </div>
+
+                        <!-- Info Section -->
+                        <div class="text-center">
+                            <h3 class="text-xl font-bold text-white mb-1">${m.name}</h3>
+                            <p class="text-xs font-semibold text-indigo-400 uppercase tracking-wider mb-3">${m.role}</p>
+                            <p class="text-slate-300 text-sm leading-relaxed mb-4 line-clamp-3">${m.bio}</p>
+                        </div>
+
+                        <!-- Skills -->
+                        <div class="flex flex-wrap gap-1.5 justify-center mb-6">
+                            ${m.skills.map(skill => `<span class="px-2.5 py-1 rounded-md text-[11px] font-medium bg-slate-800/80 text-indigo-300 border border-indigo-500/10">${skill.trim()}</span>`).join('')}
+                        </div>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="pt-4 border-t border-slate-800/80 flex items-center justify-center gap-4 text-slate-400">
+                        ${m.socials.facebook ? `<a href="${m.socials.facebook}" target="_blank" class="hover:text-indigo-400 transition-colors"><i class="fa-brands fa-facebook text-lg"></i></a>` : ''}
+                        ${m.socials.instagram ? `<a href="${m.socials.instagram}" target="_blank" class="hover:text-pink-400 transition-colors"><i class="fa-brands fa-instagram text-lg"></i></a>` : ''}
+                        ${m.socials.github ? `<a href="${m.socials.github}" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-github text-lg"></i></a>` : ''}
+                        ${m.socials.linkedin ? `<a href="${m.socials.linkedin}" target="_blank" class="hover:text-blue-400 transition-colors"><i class="fa-brands fa-linkedin text-lg"></i></a>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Lưu vào LocalStorage
+        function saveData() {
+            localStorage.setItem('team_members_data', JSON.stringify(members));
+            renderMembers();
+        }
+
+        // Modal Avatar Handling
+        function openAvatarModal(id) {
+            activeMemberIdForAvatar = id;
+            document.getElementById('avatarModal').classList.remove('hidden');
+        }
+
+        function closeAvatarModal() {
+            document.getElementById('avatarModal').classList.add('hidden');
+            activeMemberIdForAvatar = null;
+        }
+
+        function switchAvatarTab(type) {
+            const tabFile = document.getElementById('tabFile');
+            const tabUrl = document.getElementById('tabUrl');
+            const tabFileBtn = document.getElementById('tabFileBtn');
+            const tabUrlBtn = document.getElementById('tabUrlBtn');
+
+            if (type === 'file') {
+                tabFile.classList.remove('hidden');
+                tabUrl.classList.add('hidden');
+                tabFileBtn.className = "py-2 px-4 text-sm font-semibold border-b-2 border-indigo-500 text-indigo-400 w-1/2";
+                tabUrlBtn.className = "py-2 px-4 text-sm font-semibold border-b-2 border-transparent text-slate-400 hover:text-slate-200 w-1/2";
+            } else {
+                tabFile.classList.add('hidden');
+                tabUrl.classList.remove('hidden');
+                tabUrlBtn.className = "py-2 px-4 text-sm font-semibold border-b-2 border-indigo-500 text-indigo-400 w-1/2";
+                tabFileBtn.className = "py-2 px-4 text-sm font-semibold border-b-2 border-transparent text-slate-400 hover:text-slate-200 w-1/2";
+            }
+        }
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const member = members.find(m => m.id === activeMemberIdForAvatar);
+                    if (member) {
+                        member.avatar = e.target.result;
+                        saveData();
+                        closeAvatarModal();
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function applyUrlAvatar() {
+            const url = document.getElementById('avatarUrlInput').value.trim();
+            if (url) {
+                const member = members.find(m => m.id === activeMemberIdForAvatar);
+                if (member) {
+                    member.avatar = url;
+                    saveData();
+                    closeAvatarModal();
+                    document.getElementById('avatarUrlInput').value = '';
+                }
+            }
+        }
+
+        // Modal Edit Handling
+        function openEditModal(id) {
+            const member = members.find(m => m.id === id);
+            if (!member) return;
+
+            document.getElementById('editMemberId').value = member.id;
+            document.getElementById('editName').value = member.name;
+            document.getElementById('editRole').value = member.role;
+            document.getElementById('editBio').value = member.bio;
+            document.getElementById('editSkills').value = member.skills.join(', ');
+            document.getElementById('editFb').value = member.socials.facebook || '';
+            document.getElementById('editInsta').value = member.socials.instagram || '';
+            document.getElementById('editGithub').value = member.socials.github || '';
+            document.getElementById('editLinkedin').value = member.socials.linkedin || '';
+
+            document.getElementById('editModal').classList.remove('hidden');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.add('hidden');
+        }
+
+        function saveProfile(event) {
+            event.preventDefault();
+            const id = parseInt(document.getElementById('editMemberId').value);
+            const member = members.find(m => m.id === id);
+
+            if (member) {
+                member.name = document.getElementById('editName').value.trim();
+                member.role = document.getElementById('editRole').value.trim();
+                member.bio = document.getElementById('editBio').value.trim();
+                member.skills = document.getElementById('editSkills').value.split(',').map(s => s.trim()).filter(s => s);
+                member.socials = {
+                    facebook: document.getElementById('editFb').value.trim(),
+                    instagram: document.getElementById('editInsta').value.trim(),
+                    github: document.getElementById('editGithub').value.trim(),
+                    linkedin: document.getElementById('editLinkedin').value.trim()
+                };
+
+                saveData();
+                closeEditModal();
+            }
+        }
+
+        // Initialize Page
+        window.onload = function() {
+            document.getElementById('year').textContent = new Date().getFullYear();
+            renderMembers();
+        };
+    </script>
+</body>
+</html>
